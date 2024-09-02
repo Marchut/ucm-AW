@@ -1,0 +1,101 @@
+<!-- Figura 9 -->
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>404 grupo 26</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="icon" type="image/png" href="/img/favicon.png">
+    </head>
+    <body>
+
+    <%- include("../header") %>
+
+    <div class="container">
+        <div class="title big spaced">
+            <%= pregunta.titulo %>
+        </div>
+
+        <div class="question-container">
+            <div class="visit-votes-container spaced">
+                <div class="votes-container">
+                    <p><%= n_votos_preg %> votos</p>
+                    <% let ruta1positivo = "/preguntas/votarPregunta/" + pregunta.id + "/1" ; %>
+                    <% let ruta1negativo = "/preguntas/votarPregunta/" + pregunta.id + "/0" ; %>
+                    <div class="vote-icon">
+                        <a href=<%= ruta1positivo %>><img src="/img/positive.png" alt=""></a>
+                    </div>
+                    <div class="vote-icon">
+                        <a href=<%= ruta1negativo %>><img src="/img/negative.png" alt=""></a>
+                    </div>
+                </div>
+                <p>Vista <%= pregunta.visitas %> veces</p>
+            </div>
+
+            <div class="answer-question-text small">
+                <%= pregunta.cuerpo %>
+            </div>
+
+            <div class="tags-container">
+                <%if(etiquetas != undefined){ %>
+                    <% etiquetas.forEach(etiq =>{ let ruta = "/preguntas/etiquetadas/" + etiq; %>
+                    <a class="tag red text-white" href=<%=ruta%>  ><%=etiq%></a>
+                    <% }); %>
+                <% }; %>
+            </div>
+
+            <div class="info-container">
+                <div class="userquestion-info">
+                    <p class="small">Formulada el <%= pregunta.fecha.getDate() %>/<%= pregunta.fecha.getMonth()+1 %>/<%= pregunta.fecha.getFullYear() %> </p>
+                    <img src="/usuarios/imagen/<%= pregunta.id_usu %>" alt="">
+                    <a class="very-small titulo" href="/usuarios/perfil/<%= pregunta.id_usu %>"><%= pregunta.nombre %></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="spaced">
+            <p class="big"><%= respuestas.length %> Respuestas</p>
+        </div>
+        <% respuestas.forEach((respuesta, indice) => { %>
+        <div class="answer-container">
+            <div class="visit-votes-container spaced">
+                <div class="votes-container">
+                    <p><%= respuesta.puntos %> votos</p>
+                    <% let ruta2positivo = "/preguntas/votarRespuesta/" + respuesta.id + "/1/" + pregunta.id; %>
+                    <% let ruta2negativo = "/preguntas/votarRespuesta/" + respuesta.id + "/0/" + pregunta.id; %>
+                    <div class="vote-icon">
+                        <a href=<%= ruta2positivo %>><img src="/img/positive.png" alt=""></a>
+                    </div>
+                    <div class="vote-icon">
+                        <a href=<%= ruta2negativo %>><img src="/img/negative.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="answer-question-text verysmall">
+                <%= respuesta.texto %>
+            </div>
+
+            <div class="info-container">
+                <div class="userquestion-info">
+                    <p class="small">Respondida el <%= respuesta.fecha.getDate() %>/<%= respuesta.fecha.getMonth()+1 %>/<%= respuesta.fecha.getFullYear() %> </p>
+                    <img src="/usuarios/imagen/<%= respuesta.id_usu %>" alt="">
+                    <a class="very-small titulo" href="/usuarios/perfil/<%= respuesta.id_usu %>"><%= respuesta.nombre %></a>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+
+        <div class="title big spaced">Tu respuesta</div>
+
+        <form action="/preguntas/procesarRespuesta" method="post" >
+            <textarea name="cuerpo" id="cuerpo" cols="60" rows="10"></textarea>            
+            <input type="submit" value="Publica tu respuesta" class="button-long green text-white center" id="loginB">
+            <input type="hidden" name="id_preg" value=<%= pregunta.id%>>
+            
+        </form>
+    </div>
+</body>
+
+</html>

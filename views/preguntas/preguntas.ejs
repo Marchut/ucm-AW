@@ -1,0 +1,57 @@
+<!-- Figura 4-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>404 grupo 26</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+</head>
+<body>
+
+    <%- include("../header") %>
+
+
+    <div class="container">
+        <div class="title big spaced">
+            <%= titulo %>
+        </div>
+
+        <div class="n-question">
+            <p><%= preguntas.length %> preguntas</p>
+            <a href="/preguntas/formular" class="button-long-special green text-white">Formular una pregunta</a>
+        </div>
+        
+        <div class="question-container">
+            <% preguntas.forEach(preg =>{ %>
+            <div class="unanswered-container">
+                <div class="unanswered">
+                    <div class="normal">
+                        <% let ruta = "/preguntas/visitas/" + preg.id;  %>
+                        <a class="titulo" href=<%= ruta %>><%= preg.titulo %></a>
+                    </div>
+                    <div class="answer-question-text very-small">
+                        <%= preg.cuerpo %>
+                    </div>
+                    <div>
+                        <%if(etiquetas[preg.id] != undefined){ %>
+                            <% etiquetas[preg.id].forEach(etiq =>{ let ruta = "/preguntas/etiquetadas/" + etiq; %>
+                            <a href=<%=ruta%>  class="tag green text-white"><%=etiq%></a>
+                            <% }); %>
+                        <% }; %>
+                    </div>
+                </div>
+                <div class="info-container">
+                    <div class="userquestion-info">
+                        <p class="verysmall">Formulada el <%= preg.fecha.getDate() %>/<%= preg.fecha.getMonth()+1 %>/<%= preg.fecha.getFullYear() %> </p>
+                        <img src= "/usuarios/imagen/<%= preg.id_usu %>" alt="">
+                        <a class="very-small titulo" href="/usuarios/perfil/<%= preg.id_usu %>"><%= preg.nombre %></a>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</body>
+</html>

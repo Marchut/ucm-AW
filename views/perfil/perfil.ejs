@@ -1,0 +1,146 @@
+<!-- Figura 10 -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>404 grupo 26</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <link href="https://www.dafont.com/es/forum/read/249632/my-hero-academia-font?family=Roboto" rel="stylesheet">
+</head>
+<body>
+
+    <%- include("../header") %>
+
+    <div class="container">
+
+
+        <div class="profile-container spaced">
+            <div class="filter-user">
+                
+                <img src="/usuarios/imagen/<%= usuarioPerfil.id %>" alt="" class="spaced-form img-user">
+                <p class="normal"><%= usuarioPerfil.nombre %></p>
+                <p class="verysmall">Miembro desde:
+                    <%= usuarioPerfil.fecha_alta %>
+                </p>
+            </div>
+
+            <div class="statistics-container">
+                <div class="profile-bar green">
+                    <p class="normal text-white">Estadísticas</p>
+                </div>
+
+                <div class="reputation-container spaced">
+                    <div id="reputation-number">
+                        <p class="small">Reputación</p>
+                        <p class="normal"><%= usuarioPerfil.reputacion %></p>
+                    </div>
+                    <div id="reputation-questions">
+                        <p class="small">Preguntas</p>
+                        <p class="normal"><%= usuarioPerfil.n_preguntas %></p>
+                    </div>
+                    <div id="reputation-answers">
+                        <p class="small">Respuestas</p>
+                        <p class="normal"><%= usuarioPerfil.n_respuestas %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="medals-container spaced">
+            <div class="profile-bar green">
+                <p class="normal text-white">Medallas</p>
+            </div>
+            
+
+            <div class="medal-types-container spaced">
+
+                <div class="medal-container">
+                    <div class="medal-type bronze">
+                        <p class="small">BRONCE</p>
+                        <p class="big"><%= medallasBronce.reduce((ac, medalla) => ac += medalla.N, 0); %></p>
+                    </div>
+
+                    <% medallasBronce.map(medalla => { %>
+                        <div class="medal-tag">
+                            <p class="medal-in-medaltag bronze"></p>
+                            <p class="text-in-medaltag verysmall"> <%= medalla.DESCRIPCION %> </p>
+
+                            <% if(medalla.N != 1) { %>
+                            <p class="times-in-medaltag"> x<%= medalla.N %></p>
+                            <% } %>
+
+
+                        </div>
+
+                    <% }) %>
+                </div>
+
+
+                <div class="medal-container">
+                    <div class="medal-type silver">
+                        <p class="small">PLATA</p>
+                        <p class="big"><%= medallasPlata.reduce((ac, medalla) => ac += medalla.N, 0); %></p>
+                    </div>
+
+                    <% medallasPlata.map(medalla => { %>
+                        <div class="medal-tag">
+                            <p class="medal-in-medaltag silver"></p>
+                            <p class="text-in-medaltag verysmall"> <%= medalla.DESCRIPCION %> </p>
+
+                            <% if(medalla.N != 1) { %>
+                            <p class="times-in-medaltag"> x<%= medalla.N %></p>
+                            <% } %>
+
+
+                        </div>
+
+                    <% }) %>
+
+                </div>
+
+                <div class="medal-container">
+                    <div class="medal-type gold">
+                        <p class="small">ORO</p>
+                        <p class="big"><%= medallasOro.reduce((ac, medalla) => ac += medalla.N, 0); %></p>
+                    </div>
+                    
+                    <% medallasOro.map(medalla => { %>
+                        <div class="medal-tag">
+                            <p class="medal-in-medaltag gold"></p>
+                            <p class="text-in-medaltag verysmall"> <%= medalla.DESCRIPCION %> </p>
+
+                            <% if(medalla.N != 1) { %>
+                            <p class="times-in-medaltag"> x<%= medalla.N %></p>
+                            <% } %>
+
+
+                        </div>
+
+                    <% }) %>
+                </div>
+<!-- 
+
+                .medal-tag {
+                    height: 25px;
+                    padding-left: 10px;
+                    background-color: black;
+                }
+                
+                .medal-in-medaltag {
+                    
+                }
+                
+                .text-in-medaltag {
+                
+                } -->
+            </div>
+
+        </div>
+
+    </div>
+    
+
+</body>
+</html>
